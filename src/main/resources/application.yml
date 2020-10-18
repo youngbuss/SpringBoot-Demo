@@ -1,0 +1,12 @@
+spring:
+  mvc:
+    favicon:
+      enabled: false
+    date-format: yyyy-mm-dd
+  thymeleaf:
+    cache: false
+
+  messages:
+    basename: i18n.login
+
+
