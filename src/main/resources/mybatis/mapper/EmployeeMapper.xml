@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yang.demo.dao.EmployeeMapper">
+   <!-- <select id="queryAll" resultType="Employee">
+       select * from Employee;
+    </select>-->
+
+
+    <resultMap id="ED" type="Employee">
+        <result property="id" column="eid"/>
+        <result property="lastName" column="ename"/>
+        <result property="email" column="email"/>
+        <result property="gender" column="eg"/>
+        <result property="birth" column="ebir"/>
+        <association property="department" javaType="Department">
+            <result property="id" column="did"/>
+            <result property="departmentName" column="dname"/>
+        </association>
+    </resultMap>
+
+   
+
+    <select id="queryAll" resultMap="ED">
+        select e.id eid,e.lastName ename,e.email email,e.gender eg,e.departmentid edid,e.birth ebir,d.id did,d.departmentName dname
+        from employee e,department d
+        where e.departmentid = d.id;
+    </select>
+
+    <insert id="addEmployee"  parameterType="Employee">
+        insert  into employee (lastName,email,gender,departmentid,birth) values (#{lastName},#{email},#{gender},#{department.id},#{birth});
+    </insert>
+
+    <select id="queryById" resultMap="ED">
+        select e.id eid,e.lastName ename,e.email email,e.gender eg,e.departmentid edid,e.birth ebir,d.id did,d.departmentName dname
+        from employee e,department d
+        where e.departmentid = d.id and  e.id = #{id};
+    </select>
+    
+    <update id="updateEmployee" parameterType="Employee">
+        update employee set lastName = #{lastName},email=#{email},gender=#{gender},departmentid=#{department.id},birth=#{birth} where id= #{id} ;
+    </update>
+    
+    <delete id="deleteEmployee">
+        delete from employee where id = #{id}
+    </delete>
+
+</mapper>
