@@ -6,7 +6,12 @@
     <select id="getDepartments" resultType="Department">
         select * from department;
     </select>
-
+    <select id="getcounts" resultType="java.util.Map">
+        select a.id,a.departmentName ,b.c from
+        (select id,departmentName from department ) a join
+        (SELECT departmentid as id,COUNT(departmentid) as c FROM employee GROUP BY departmentid) b
+        on a.id=b.id;
+    </select>
 
 
 </mapper>

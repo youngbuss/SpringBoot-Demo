@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Dashboard Template for Bootstrap</title>
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script src="https://cdn.bootcss.com/echarts/4.6.0/echarts.min.js"></script>
+		<!-- Bootstrap core CSS -->
+		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link th:href="@{/css/dashboard.css}" rel="stylesheet">
+		<style type="text/css">
+			/* Chart.js */
+			
+			@-webkit-keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			@keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			.chartjs-render-monitor {
+				-webkit-animation: chartjs-render-animation 0.001s;
+				animation: chartjs-render-animation 0.001s;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--顶部导航栏-->
+		<div th:insert="~{commons/commons::headerbar}"></div>
+
+
+		<div class="container-fluid">
+			<div class="row">
+
+				<!--侧边栏-->
+				<div th:insert="~{commons/commons::sidebar(active='ecjart.html')}"></div>
+
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<div id="echart" style="width: 600px;height:400px;"></div>
+					<div class="table-responsive">
+						<table class="table table-striped table-sm">
+							<thead>
+							<tr>
+								<th>Name</th>
+								<th>Counts</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr th:each="val:${value.keySet()}">
+								<td th:text="${val}"></td>
+								<td th:text="${value.get(val)}"></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<h3 th:text="${value}"></h3>
+
+				</main>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" ></script>
+		<script type="text/javascript" src="asserts/js/popper.min.js" ></script>
+		<script type="text/javascript" src="asserts/js/bootstrap.min.js" ></script>
+
+		<!-- Icons -->
+		<script type="text/javascript" src="asserts/js/feather.min.js" ></script>
+		<script>
+			feather.replace()
+		</script>
+
+		<!-- Graphs -->
+		<script type="text/javascript" src="asserts/js/Chart.min.js" ></script>
+
+
+		<script type="text/javascript">
+
+			//alert("[[${value}]]")
+			//alert("[[${value.keySet()}]]")
+
+
+
+			// 基于准备好的dom，初始化echarts实例
+			var myChart = echarts.init(document.getElementById('echart'));
+
+			// 指定图表的配置项和数据
+			var option = {
+				title: {
+					text: 'ECharts 入门示例'
+				},
+				tooltip: {},
+				legend: {
+					data:['人数']
+				},
+				xAxis: {
+					data: ["bubu","hh","ggb","hrb","jtt","sgg"]
+				},
+				yAxis: {},
+				series: [{
+					name: '销量',
+					type: 'bar',
+					data: [5, 20, 36, 10, 10, 20]
+				}]
+			};
+
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option);
+		</script>
+
+	</body>
+
+</html>

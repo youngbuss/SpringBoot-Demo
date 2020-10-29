@@ -42,16 +42,20 @@ public class EmployeeController {
     @RequestMapping("/emp")
     public String toAddpage(Model model){
         //查出部门信息
+        System.out.println("查出部门信息");
         List<Department> departmentList = departmentMapper.getDepartments();
+        for (Department department : departmentList) {
+            System.out.println(department);
+        }
         model.addAttribute("dep",departmentList);
-        return "/emp/add";
+        return "emp/add";
     }
 
     @PostMapping("/emp")
     public String AddEmployee(Employee employee){
         //添加操作
         System.out.println(employee);
-        
+
         employeeMapper.addEmployee(employee);
         return "redirect:/emps";
     }
@@ -63,7 +67,7 @@ public class EmployeeController {
         List<Department> departments = departmentMapper.getDepartments();
         model.addAttribute("employee",employee);
         model.addAttribute("dep",departments);
-        return "/emp/update";
+        return "emp/update";
     }
     @PostMapping("/emp/update")
     public  String updateEmployee(Employee employee){
